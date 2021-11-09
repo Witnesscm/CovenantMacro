@@ -5,16 +5,12 @@ local AceConfigRegistry = LibStub("AceConfigRegistry-3.0")
 local AceConfigDialog = LibStub("AceConfigDialog-3.0")
 local Option = Addon:NewModule("Option")
 
-function Option:ErrorMessage()
-	UIErrorsFrame:AddMessage("|cff99ccff"..ERR_NOT_IN_COMBAT)
-end
-
 local function get_function(info)
 	return Addon.db.profile[info[#info]]
 end
 
 local function set_function(info, val)
-	if InCombatLockdown() then Option:ErrorMessage() return end
+	if InCombatLockdown() then Addon:ErrorMessage(ERR_NOT_IN_COMBAT) return end
 
 	local key = info[#info]
 	Addon.db.profile[key] = val
@@ -26,11 +22,12 @@ local function macro_get_function(info)
 end
 
 local function macro_set_function(info, val)
-	if InCombatLockdown() then Option:ErrorMessage() return end
+	if InCombatLockdown() then Addon:ErrorMessage(ERR_NOT_IN_COMBAT) return end
 
 	local key = info[#info]
-	Addon:Macro_Rename(Addon.db.global[key], val)
-	Addon.db.global[key] = val
+	if Addon:Macro_Rename(Addon.db.global[key], val) then
+		Addon.db.global[key] = val
+	end
 end
 
 local options = {
@@ -66,7 +63,7 @@ local options = {
 					confirm = true,
 					confirmText = L["Reset all macros to defaults."],
 					func = function()
-						if InCombatLockdown() then Option:ErrorMessage() return end
+						if InCombatLockdown() then Addon:ErrorMessage(ERR_NOT_IN_COMBAT) return end
 						Addon:InitSettings(true)
 						Addon:UpdateMacros(true)
 					end
@@ -133,7 +130,7 @@ local options = {
 					confirm = true,
 					confirmText = L["Reset all macros to defaults."],
 					func = function()
-						if InCombatLockdown() then Option:ErrorMessage() return end
+						if InCombatLockdown() then Addon:ErrorMessage(ERR_NOT_IN_COMBAT) return end
 						Addon:InitSettings(true)
 						Addon:UpdateMacros(true)
 					end

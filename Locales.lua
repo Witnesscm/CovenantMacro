@@ -14,6 +14,7 @@ if locale == "zhCN" then
 	L["Reset all macros to defaults."] = "重置所有宏命令到预设值。"
 	L["Macro %s has been created."] = "宏 %s 已创建。"
 	L["Macros has been updated."] = "宏已更新。"
+	L["Macro %s already exists, please enter another name."] = "宏 %s 已存在, 请输入其他名称。"
 	L["Macro %s has been renamed to %s."] = "宏 %s 更名为 %s。"
 	L["The number of General Macros has reached the upper limit."] = "通用宏数量已达上限。"
 end
@@ -30,6 +31,7 @@ end
 	L["Reset all macros to defaults."] = "Reset all macros to defaults."
 	L["Macro %s has been created."] = "Macro %s has been created."
 	L["Macros has been updated."] = "Macros has been updated."
+	L["Macro %s already exists, please enter another name."] = "Macro %s already exists, please enter another name."
 	L["Macro %s has been renamed to %s."] = "Macro %s has been renamed to %s."
 	L["The number of General Macros has reached the upper limit."] = "The number of General Macros has reached the upper limit."
 end ]]

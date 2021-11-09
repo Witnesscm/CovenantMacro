@@ -24,10 +24,16 @@ end
 function Addon:Macro_Rename(old, new)
 	if old == new then return end
 
+	if GetMacroInfo(new) then
+		Addon:ErrorMessage(L["Macro %s already exists, please enter another name."], new)
+		return
+	end
+
 	local index = GetMacroIndexByName(old)
 	if index then
 		EditMacro(index, new, nil, GetMacroBody(index))
 		Addon:Print(L["Macro %s has been renamed to %s."], old, new)
+		return true
 	end
 end
 
