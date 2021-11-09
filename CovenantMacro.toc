@@ -1,0 +1,14 @@
+## Interface: 90105
+## Title: Covenant Macro
+## Author: Witness
+## Notes: Automatically update macro body when switching covenant.
+## Version: 1.0.1
+## SavedVariables: CovenantMacroDB
+
+
+Libs\Libs.xml
+Init.lua
+Data.lua
+Locales.lua
+Option.lua
+Core.lua
