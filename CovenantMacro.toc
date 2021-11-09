@@ -2,7 +2,7 @@
 ## Title: Covenant Macro
 ## Author: Witness
 ## Notes: Automatically update macro body when switching covenant.
-## Version: 1.0.1
+## Version: @project-version@
 ## SavedVariables: CovenantMacroDB
 
 
