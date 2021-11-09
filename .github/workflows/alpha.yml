@@ -24,5 +24,5 @@ jobs:
       - name: 上传到 Github Actions
         uses: actions/upload-artifact@v2
         with:
-          name: NDui_Plus
+          name: CovenantMacro
           path: .release/*.zip
