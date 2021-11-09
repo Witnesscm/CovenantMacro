@@ -4,7 +4,8 @@
 ## Notes: Automatically update macro body when switching covenant.
 ## Version: @project-version@
 ## SavedVariables: CovenantMacroDB
-
+## X-Curse-Project-ID: 545495
+## X-Wago-ID: ME6g23N1
 
 Libs\Libs.xml
 Init.lua
