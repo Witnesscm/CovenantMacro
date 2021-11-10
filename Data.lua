@@ -7,6 +7,11 @@ ns.CovenantMap = {
 	[4] = "Necrolord",
 }
 
+ns.AbilityTypes = {
+	[1] = "Signature",
+	[2] = "Class",
+}
+
 ns.SignatureAbilities = {
 	[1] = 324739,	-- 召唤执事者 (格里恩)
 	[2] = 300728,	-- 暗影之门 (温西尔)

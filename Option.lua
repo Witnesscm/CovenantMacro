@@ -5,176 +5,100 @@ local AceConfigRegistry = LibStub("AceConfigRegistry-3.0")
 local AceConfigDialog = LibStub("AceConfigDialog-3.0")
 local Option = Addon:NewModule("Option")
 
-local function get_function(info)
-	return Addon.db.profile[info[#info]]
+function Option:Get(key, global)
+	return global and Addon.db.global[key] or Addon.db.profile[key]
 end
 
-local function set_function(info, val)
-	if InCombatLockdown() then Addon:ErrorMessage(ERR_NOT_IN_COMBAT) return end
-
-	local key = info[#info]
-	Addon.db.profile[key] = val
-	Addon:UpdateMacros(nil, key)
-end
-
-local function macro_get_function(info)
-	return Addon.db.global[info[#info]]
-end
-
-local function macro_set_function(info, val)
-	if InCombatLockdown() then Addon:ErrorMessage(ERR_NOT_IN_COMBAT) return end
-
-	local key = info[#info]
-	if Addon:Macro_Rename(Addon.db.global[key], val) then
-		Addon.db.global[key] = val
+function Option:Set(key, value, global)
+	if global then
+		Addon.db.global[key] = value
+	else
+		Addon.db.profile[key] = value
 	end
 end
 
-local options = {
+function Option:Set_MacroName(key, value)
+	if InCombatLockdown() then Addon:ErrorMessage(ERR_NOT_IN_COMBAT) return end
+
+	if Addon:Macro_Rename(Addon.db.global[key], value) then
+		Addon.db.global[key] = value
+	end
+end
+
+function Option:Set_MacroBody(key, value)
+	if InCombatLockdown() then Addon:ErrorMessage(ERR_NOT_IN_COMBAT) return end
+
+	Addon.db.profile[key] = value
+	Addon:UpdateMacros(nil, key)
+end
+
+ns.Options = {
 	type = "group",
 	name = ADDON,
 	childGroups = "tab",
-	get = get_function,
-	set = set_function,
-	args = {
-		Signature = {
-			order = 1,
-			name = L["Signature Ability"],
-			type = "group",
-			childGroups = "select",
-			args = {
-				SignatureMacro = {
-					order = 1,
-					name = L["Macro Name"],
-					type = "input",
-					get = macro_get_function,
-					set = macro_set_function,
-				},
-				Space1 = {
-					order = 2,
-					name = " ",
-					type = "description",
-					width = .5,
-				},
-				button = {
-					order = 3,
-					name = L["Reset All"],
-					type = "execute",
-					confirm = true,
-					confirmText = L["Reset all macros to defaults."],
-					func = function()
-						if InCombatLockdown() then Addon:ErrorMessage(ERR_NOT_IN_COMBAT) return end
-						Addon:InitSettings(true)
-						Addon:UpdateMacros(true)
-					end
-				},
-				Space2 = {
-					order = 4,
-					name = " ",
-					type = "description",
-					width = "full",
-				},
-				KyrianSignature = {
-					order = 5,
-					name = L["Kyrian"],
-					type = "input",
-					width = 2.5,
-					multiline = 6,
-				},
-				VenthyrSignature = {
-					order = 6,
-					name = L["Venthyr"],
-					type = "input",
-					width = 2.5,
-					multiline = 6,
-				},
-				NightFaeSignature = {
-					order = 7,
-					name = L["Night Fae"],
-					type = "input",
-					width = 2.5,
-					multiline = 6,
-				},
-				NecrolordSignature = {
-					order = 8,
-					name = L["Necrolord"],
-					type = "input",
-					width = 2.5,
-					multiline = 6,
-				},
-			},
-		},
-		Class = {
-			order = 2,
-			name = L["Class Ability"],
-			type = "group",
-			childGroups = "select",
-			args = {
-				ClassMacro = {
-					order = 1,
-					name = L["Macro Name"],
-					type = "input",
-					get = macro_get_function,
-					set = macro_set_function,
-				},
-				Space1 = {
-					order = 2,
-					name = " ",
-					type = "description",
-					width = .5,
-				},
-				button = {
-					order = 3,
-					name = L["Reset All"],
-					type = "execute",
-					confirm = true,
-					confirmText = L["Reset all macros to defaults."],
-					func = function()
-						if InCombatLockdown() then Addon:ErrorMessage(ERR_NOT_IN_COMBAT) return end
-						Addon:InitSettings(true)
-						Addon:UpdateMacros(true)
-					end
-				},
-				Space2 = {
-					order = 4,
-					name = " ",
-					type = "description",
-					width = "full",
-				},
-				KyrianClass = {
-					order = 5,
-					name = L["Kyrian"],
-					type = "input",
-					width = 2.5,
-					multiline = 6,
-				},
-				VenthyrClass = {
-					order = 6,
-					name = L["Venthyr"],
-					type = "input",
-					width = 2.5,
-					multiline = 6,
-				},
-				NightFaeClass = {
-					order = 7,
-					name = L["Night Fae"],
-					type = "input",
-					width = 2.5,
-					multiline = 6,
-				},
-				NecrolordClass = {
-					order = 8,
-					name = L["Necrolord"],
-					type = "input",
-					width = 2.5,
-					multiline = 6,
-				},
-			},
-		},
-	},
+	get = function(info) return Option:Get(info[#info]) end,
+	set = function(info, value) Option:Set(info[#info], value) end,
+	args = {},
 }
 
 function Option:OnEnable()
-	AceConfigRegistry:RegisterOptionsTable(ADDON, options)
+	for i, type in ipairs(ns.AbilityTypes) do
+		ns.Options.args[type] = {
+			order = i,
+			name = L[type.." Ability"],
+			type = "group",
+			childGroups = "select",
+			args = {
+				Space1 = {
+					order = 2,
+					name = " ",
+					type = "description",
+					width = .5,
+				},
+				button = {
+					order = 3,
+					name = L["Reset All"],
+					type = "execute",
+					confirm = true,
+					confirmText = L["Reset all macros to defaults."],
+					func = function()
+						if InCombatLockdown() then Addon:ErrorMessage(ERR_NOT_IN_COMBAT) return end
+						Addon:InitSettings(true)
+						Addon:UpdateMacros(true)
+					end
+				},
+				Space2 = {
+					order = 4,
+					name = " ",
+					type = "description",
+					width = "full",
+				},
+			},
+		}
+
+		ns.Options.args[type].args[type.."Macro"] = {
+			order = 1,
+			name = L["Macro Name"],
+			type = "input",
+			get = function(info) return Option:Get(info[#info], true) end,
+			set = function(info, value) Option:Set_MacroName(info[#info], value) end,
+		}
+
+		local order = 5
+		for _, covenant in ipairs(ns.CovenantMap) do
+			ns.Options.args[type].args[covenant..type] = {
+				order = order,
+				name = L[covenant],
+				type = "input",
+				width = 2.5,
+				multiline = 6,
+				set = function(info, value) Option:Set_MacroBody(info[#info], value) end,
+			}
+
+			order = order + 1
+		end
+	end
+
+	AceConfigRegistry:RegisterOptionsTable(ADDON, ns.Options)
 	AceConfigDialog:AddToBlizOptions(ADDON, ADDON)
 end

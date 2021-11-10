@@ -6,7 +6,6 @@ local ipairs = ipairs
 local strmatch = string.match
 
 local defaultMacro = "#showtooltip\n/cast %s"
-local abilityTypes = {"Signature", "Class"}
 
 function Addon:Macro_Refresh(name, body)
 	if not GetMacroInfo(name) then
@@ -47,7 +46,7 @@ function Addon:UpdateMacros(notify, key)
 	if covenant then
 		if key and not strmatch(key, covenant) then return end
 
-		for _, type in ipairs(abilityTypes) do
+		for _, type in ipairs(ns.AbilityTypes) do
 			Addon:Macro_Refresh(self.db.global[type.."Macro"], self.db.profile[covenant..type])
 		end
 
@@ -59,7 +58,7 @@ end
 
 function Addon:InitSettings(force)
 	for id, covenant in ipairs(ns.CovenantMap) do
-		for _, type in ipairs(abilityTypes) do
+		for _, type in ipairs(ns.AbilityTypes) do
 			if force or self.db.profile[covenant..type] == "" then
 				local spellID = type == "Signature" and ns.SignatureAbilities[id] or self.ClassAbilities[id]
 				self.db.profile[covenant..type] = format(defaultMacro, GetSpellInfo(spellID))
