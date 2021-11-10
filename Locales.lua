@@ -17,6 +17,7 @@ if locale == "zhCN" then
 	L["Macro %s already exists, please enter another name."] = "宏 %s 已存在, 请输入其他名称。"
 	L["Macro %s has been renamed to %s."] = "宏 %s 更名为 %s。"
 	L["The number of General Macros has reached the upper limit."] = "通用宏数量已达上限。"
+	L["Macro command exceeds 255 characters"] = "宏命令超出255个字符"
 end
 
 --[[ if locale == "enUS" then
@@ -34,4 +35,5 @@ end
 	L["Macro %s already exists, please enter another name."] = "Macro %s already exists, please enter another name."
 	L["Macro %s has been renamed to %s."] = "Macro %s has been renamed to %s."
 	L["The number of General Macros has reached the upper limit."] = "The number of General Macros has reached the upper limit."
+	L["Macro command exceeds 255 characters"] = "Macro command exceeds 255 characters"
 end ]]

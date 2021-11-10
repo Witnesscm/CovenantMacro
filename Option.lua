@@ -18,7 +18,10 @@ function Option:Set(key, value, global)
 end
 
 function Option:Set_MacroName(key, value)
-	if InCombatLockdown() then Addon:ErrorMessage(ERR_NOT_IN_COMBAT) return end
+	if InCombatLockdown() then
+		Addon:ErrorMessage(ERR_NOT_IN_COMBAT)
+		return
+	end
 
 	if Addon:Macro_Rename(Addon.db.global[key], value) then
 		Addon.db.global[key] = value
@@ -26,7 +29,15 @@ function Option:Set_MacroName(key, value)
 end
 
 function Option:Set_MacroBody(key, value)
-	if InCombatLockdown() then Addon:ErrorMessage(ERR_NOT_IN_COMBAT) return end
+	if InCombatLockdown() then
+		Addon:ErrorMessage(ERR_NOT_IN_COMBAT)
+		return
+	end
+
+	if value and strlenutf8(value) > 255 then
+		Addon:ErrorMessage(L["Macro command exceeds 255 characters"])
+		return
+	end
 
 	Addon.db.profile[key] = value
 	Addon:UpdateMacros(nil, key)
