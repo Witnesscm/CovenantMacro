@@ -20,7 +20,27 @@ if locale == "zhCN" then
 	L["Macro command exceeds 255 characters"] = "宏命令超出255个字符"
 end
 
---[[ if locale == "enUS" then
+-- ruRU by ZamestoTV
+if locale == "ruRU" then
+	L["Signature Ability"] = "Общая способность"
+	L["Class Ability"] = "Классовая способность"
+	L["Macro Name"] = "Название макроса"
+	L["Kyrian"] = "Кирии"
+	L["Venthyr"] = "Вентиры"
+	L["Night Fae"] = "Ночной народец"
+	L["Necrolord"] = "Некролорды"
+	L["Reset All"] = "Сбросить все"
+	L["Reset all macros to defaults."] = "Сбросить все макросы до значений по умолчанию."
+	L["Macro %s has been created."] = "Макрос %s создан."
+	L["Macros has been updated."] = "Макрос обновлен."
+	L["Macro %s already exists, please enter another name."] = "Макрос %s уже существует. Введите другое название."
+	L["Macro %s has been renamed to %s."] = "Макрос %s был переименован в %s."
+	L["The number of General Macros has reached the upper limit."] = "Количество общих макросов достигло предела."
+	L["Macro command exceeds 255 characters"] = "Macro command exceeds 255 characters"
+end
+
+--[[ -- example
+if locale == "enUS" then
 	L["Signature Ability"] = "Signature Ability"
 	L["Class Ability"] = "Class Ability"
 	L["Macro Name"] = "Macro Name"
