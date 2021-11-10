@@ -24,7 +24,7 @@ function Addon:Macro_Rename(old, new)
 	if old == new then return end
 
 	if GetMacroInfo(new) then
-		Addon:ErrorMessage(L["Macro %s already exists, please enter another name."], new)
+		Addon:Error(L["Macro %s already exists, please enter another name."], new)
 		return
 	end
 

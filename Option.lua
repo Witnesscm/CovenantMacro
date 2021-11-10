@@ -19,7 +19,7 @@ end
 
 function Option:Set_MacroName(key, value)
 	if InCombatLockdown() then
-		Addon:ErrorMessage(ERR_NOT_IN_COMBAT)
+		Addon:Error(ERR_NOT_IN_COMBAT)
 		return
 	end
 
@@ -30,12 +30,12 @@ end
 
 function Option:Set_MacroBody(key, value)
 	if InCombatLockdown() then
-		Addon:ErrorMessage(ERR_NOT_IN_COMBAT)
+		Addon:Error(ERR_NOT_IN_COMBAT)
 		return
 	end
 
 	if value and strlenutf8(value) > 255 then
-		Addon:ErrorMessage(L["Macro command exceeds 255 characters"])
+		Addon:Error(L["Macro command exceeds 255 characters"])
 		return
 	end
 
@@ -66,14 +66,14 @@ function Option:OnEnable()
 					type = "description",
 					width = .5,
 				},
-				button = {
+				Reset = {
 					order = 3,
 					name = L["Reset All"],
 					type = "execute",
 					confirm = true,
 					confirmText = L["Reset all macros to defaults."],
 					func = function()
-						if InCombatLockdown() then Addon:ErrorMessage(ERR_NOT_IN_COMBAT) return end
+						if InCombatLockdown() then Addon:Error(ERR_NOT_IN_COMBAT) return end
 						Addon:InitSettings(true)
 						Addon:UpdateMacros(true)
 					end

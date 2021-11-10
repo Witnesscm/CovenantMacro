@@ -37,6 +37,6 @@ function Addon:Print(...)
 	_G.DEFAULT_CHAT_FRAME:AddMessage("|cFF70B8FF"..ADDON..":|r " .. format(...))
 end
 
-function Addon:ErrorMessage(...)
+function Addon:Error(...)
 	_G.UIErrorsFrame:AddMessage("|cFF70B8FF"..format(...).."|r ")
 end
