@@ -1,8 +1,13 @@
 # CovenantMacro
 
-This addon will automatically create covenant signature and class ability macro when first login, and you can customize the macro name and body.
+This addon will automatically create covenant signature ability and class ability macros when first login.
 
-Each covenant is preset with default macro.
+Each covenant is preset with default macro command, you can also customize it.
 
-## Options:
-Interface - AddOns - CovenantMacro
+The macro command will be automatically updated when you switch covenant.
+
+## Download
+
+[Curseforge](https://www.curseforge.com/wow/addons/covenant-macro)
+
+[Github Release](https://github.com/Witnesscm/CovenantMacro/releases)
