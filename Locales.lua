@@ -36,7 +36,7 @@ if locale == "ruRU" then
 	L["Macro %s already exists, please enter another name."] = "Макрос %s уже существует. Введите другое название."
 	L["Macro %s has been renamed to %s."] = "Макрос %s был переименован в %s."
 	L["The number of General Macros has reached the upper limit."] = "Количество общих макросов достигло предела."
-	L["Macro command exceeds 255 characters"] = "Macro command exceeds 255 characters"
+	L["Macro command exceeds 255 characters"] = "Команда макроса превышает 255 символов"
 end
 
 --[[ -- example
