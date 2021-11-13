@@ -43,6 +43,31 @@ function Option:Set_MacroBody(key, value)
 	Addon:UpdateMacros(nil, key)
 end
 
+function Option:Get_MacroIcon(type)
+	local _, icon = GetMacroInfo(Addon.db.global[type.."Macro"])
+
+	return icon or 134400
+end
+
+function Option:PickupMacro(type)
+	if InCombatLockdown() then
+		Addon:Error(ERR_NOT_IN_COMBAT)
+		return
+	end
+
+	local name = Addon.db.global[type.."Macro"]
+	local index = GetMacroIndexByName(name)
+	if index and index > 0 then
+		PickupMacro(index)
+	else
+		local covenant = Addon.CovenantID and Addon.CovenantID > 0 and ns.CovenantMap[Addon.CovenantID]
+		if covenant then
+			Addon:Macro_Refresh(name, Addon.db.profile[covenant..type])
+			PickupMacro(GetMacroIndexByName(name))
+		end
+	end
+end
+
 ns.Options = {
 	type = "group",
 	name = ADDON,
@@ -60,11 +85,15 @@ function Option:OnEnable()
 			type = "group",
 			childGroups = "select",
 			args = {
-				Space1 = {
+				Icon = {
 					order = 2,
-					name = " ",
-					type = "description",
+					name = "",
+					type = "execute",
 					width = .5,
+					image = function() return Option:Get_MacroIcon(type) end,
+					imageWidth = 36,
+					imageHeight = 36,
+					func = function() Option:PickupMacro(type) end
 				},
 				Reset = {
 					order = 3,
@@ -78,12 +107,6 @@ function Option:OnEnable()
 						Addon:UpdateMacros(true)
 					end
 				},
-				Space2 = {
-					order = 4,
-					name = " ",
-					type = "description",
-					width = "full",
-				},
 			},
 		}
 
@@ -95,7 +118,7 @@ function Option:OnEnable()
 			set = function(info, value) Option:Set_MacroName(info[#info], value) end,
 		}
 
-		local order = 5
+		local order = 10
 		for _, covenant in ipairs(ns.CovenantMap) do
 			ns.Options.args[type].args[covenant..type] = {
 				order = order,

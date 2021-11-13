@@ -29,7 +29,7 @@ function Addon:Macro_Rename(old, new)
 	end
 
 	local index = GetMacroIndexByName(old)
-	if index then
+	if index and index > 0 then
 		EditMacro(index, new, nil, GetMacroBody(index))
 		Addon:Print(L["Macro %s has been renamed to %s."], old, new)
 		return true
