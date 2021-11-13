@@ -39,6 +39,25 @@ if locale == "ruRU" then
 	L["Macro command exceeds 255 characters"] = "Команда макроса превышает 255 символов"
 end
 
+-- zhTW by 博雅
+if locale == "zhTW" then
+	L["Signature Ability"] = "特属技能"
+	L["Class Ability"] = "職業技能"
+	L["Macro Name"] = "巨集名稱"
+	L["Kyrian"] = "琪瑞安"
+	L["Venthyr"] = "汎希爾族"
+	L["NightFae"] = "暗夜妖精"
+	L["Necrolord"] = "死靈領主"
+	L["Reset All"] = "重置全部"
+	L["Reset all macros to defaults."] = "重置所有巨集指令到預設值。"
+	L["Macro %s has been created."] = "巨集 %s 已創建。"
+	L["Macros has been updated."] = "巨集已更新。"
+	L["Macro %s already exists, please enter another name."] = "巨集 %s 已存在, 請輸入其他名稱。"
+	L["Macro %s has been renamed to %s."] = "巨集 %s 更名為 %s。"
+	L["The number of General Macros has reached the upper limit."] = "一般巨集數量已逹上限。"
+	L["Macro command exceeds 255 characters"] = "巨集指令超出255个字元。"
+end
+
 --[[ -- example
 if locale == "enUS" then
 	L["Signature Ability"] = "Signature Ability"
