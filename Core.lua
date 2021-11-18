@@ -45,7 +45,7 @@ function Addon:UpdateMacros(notify)
 
 	local covenant = self.CovenantID and self.CovenantID > 0 and ns.CovenantMap[self.CovenantID]
 	if covenant then
-		if notify and type(notify) == "string" and not strmatch(key, covenant) then return end
+		if notify and type(notify) == "string" and not strmatch(notify, covenant) then return end
 
 		for _, type in ipairs(ns.AbilityTypes) do
 			self:Macro_Refresh(self.db.global[type.."Macro"], self.db.profile[covenant..type])
