@@ -23,6 +23,10 @@ function Option:Set_MacroName(key, value)
 		return
 	end
 
+	if not value or value == "" then
+		return
+	end
+
 	if Addon:Macro_Rename(Addon.db.global[key], value) then
 		Addon.db.global[key] = value
 	end
