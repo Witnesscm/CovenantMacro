@@ -4,6 +4,7 @@ local L = ns.L
 
 local ipairs = ipairs
 local strmatch = string.match
+local format = string.format
 
 local defaultMacro = "#showtooltip\n/cast %s"
 
@@ -36,7 +37,7 @@ function Addon:Macro_Rename(old, new)
 	end
 end
 
-function Addon:UpdateMacros(notify, key)
+function Addon:UpdateMacros(notify)
 	if InCombatLockdown() then
 		self:RegisterEvent("PLAYER_REGEN_ENABLED")
 		return
@@ -44,22 +45,29 @@ function Addon:UpdateMacros(notify, key)
 
 	local covenant = self.CovenantID and self.CovenantID > 0 and ns.CovenantMap[self.CovenantID]
 	if covenant then
-		if key and not strmatch(key, covenant) then return end
+		if notify and type(notify) == "string" and not strmatch(key, covenant) then return end
 
 		for _, type in ipairs(ns.AbilityTypes) do
 			self:Macro_Refresh(self.db.global[type.."Macro"], self.db.profile[covenant..type])
 		end
 
-		if notify or key then
+		for i = 1, 5 do
+			local custom = "Custom"..i
+			if self.db.profile[custom] then
+				self:Macro_Refresh(self.db.global[custom.."Macro"], self.db.profile[covenant..custom])
+			end
+		end
+
+		if notify then
 			Addon:Print(L["Macros has been updated."])
 		end
 	end
 end
 
-function Addon:InitSettings(force)
+function Addon:InitSettings(reset)
 	for _, type in ipairs(ns.AbilityTypes) do
 		for id, covenant in ipairs(ns.CovenantMap) do
-			if force or self.db.profile[covenant..type] == "" then
+			if not self.db.profile[covenant..type] or (reset and reset == type) then
 				local spellID = type == "Signature" and ns.SignatureAbilities[id] or self.ClassAbilities[id]
 				self.db.profile[covenant..type] = format(defaultMacro, GetSpellInfo(spellID))
 			end

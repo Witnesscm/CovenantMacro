@@ -1,7 +1,7 @@
 ## Interface: 90105
 ## Title: Covenant Macro
 ## Author: Witness
-## Notes: Automatically update macro body when switching covenant.
+## Notes: Automatically update macro command when switching covenant.
 ## Version: @project-version@
 ## SavedVariables: CovenantMacroDB
 ## X-Curse-Project-ID: 545495

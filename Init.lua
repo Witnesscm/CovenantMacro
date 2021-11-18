@@ -8,6 +8,7 @@ setmetatable(L, {
 
 ns.Addon = Addon
 ns.L = L
+ns.Version = GetAddOnMetadata(ADDON, "Version")
 ns.MyClass = select(2, UnitClass("player"))
 
 _G[ADDON] = ns
@@ -18,18 +19,17 @@ local defaults = {
 		ClassMacro = "CMClass",
 	},
 	profile = {
-		KyrianSignature = "",
-		KyrianClass = "",
-		VenthyrSignature = "",
-		VenthyrClass = "",
-		NightFaeSignature = "",
-		NightFaeClass = "",
-		NecrolordSignature = "",
-		NecrolordClass = "",
+
 	}
 }
 
 function Addon:OnInitialize()
+	for i = 1, 5 do
+		local custom = "Custom"..i
+		defaults.global[custom.."Macro"] = "CM"..custom
+		defaults.profile[custom] = false
+	end
+
 	self.db = LibStub("AceDB-3.0"):New("CovenantMacroDB", defaults)
 end
 
