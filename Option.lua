@@ -154,7 +154,7 @@ function Option:OnEnable()
 		}
 	}
 
-	for i = 1, 5 do
+	for i = 1, ns.NUM_CUSTOM do
 		ns.Options.args["Custom"..i] = Option:GetMacroOptions(i + 10, "Custom"..i)
 		ns.Options.args["Custom"..i].name = CUSTOM.." "..i
 		ns.Options.args["Custom"..i].hidden = function() return not Option:Get("Custom"..i) end

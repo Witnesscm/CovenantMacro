@@ -51,7 +51,7 @@ function Addon:UpdateMacros(notify)
 			self:Macro_Refresh(self.db.global[type.."Macro"], self.db.profile[covenant..type])
 		end
 
-		for i = 1, 5 do
+		for i = 1, ns.NUM_CUSTOM do
 			local custom = "Custom"..i
 			if self.db.profile[custom] then
 				self:Macro_Refresh(self.db.global[custom.."Macro"], self.db.profile[covenant..custom])

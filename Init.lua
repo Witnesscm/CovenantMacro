@@ -10,6 +10,7 @@ ns.Addon = Addon
 ns.L = L
 ns.Version = GetAddOnMetadata(ADDON, "Version")
 ns.MyClass = select(2, UnitClass("player"))
+ns.NUM_CUSTOM = 5
 
 _G[ADDON] = ns
 
@@ -24,7 +25,7 @@ local defaults = {
 }
 
 function Addon:OnInitialize()
-	for i = 1, 5 do
+	for i = 1, ns.NUM_CUSTOM do
 		local custom = "Custom"..i
 		defaults.global[custom.."Macro"] = "CM"..custom
 		defaults.profile[custom] = false
